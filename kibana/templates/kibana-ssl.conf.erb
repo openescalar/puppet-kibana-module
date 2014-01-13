@@ -1,7 +1,7 @@
 NameVirtualHost *:443
 
 <VirtualHost *:443>
-    ServerName na1kibana.bio-iad.ea.com 
+    ServerName localhost
     DocumentRoot /opt/kibana/v3
     ServerAlias na1kibana 
     ErrorLog logs/v_ssl_error_log
@@ -16,7 +16,7 @@ NameVirtualHost *:443
     RewriteEngine On
     # Rewrite all requests to use port 443, preserve the host name
     # so the rewrites in the below vhost include will work correctly
-    #RewriteRule ^/$            https://na1kibana.bio-iad.ea.com/kibana3/index.html [L,R,NE]
+    #RewriteRule ^/$            https://localhost/kibana3/index.html [L,R,NE]
     <IfModule mod_proxy.c>
 
         <Proxy *>
@@ -32,14 +32,14 @@ NameVirtualHost *:443
 
   # Proxy for _aliases and .*/_search
   <LocationMatch "^(/_aliases|.*/_search|.*/_mapping)$">
-    ProxyPassMatch http://10.72.173.5:9200
-    ProxyPassReverse http://10.72.173.5:9200
+    ProxyPassMatch http://127.0.0.1:9200
+    ProxyPassReverse http://127.0.0.1:9200
   </LocationMatch>
 
   # Proxy for kibana-int/{dashboard,temp} stuff (if you don't want auth on /, then you will want these to be protected)
   <LocationMatch "^(/kibana-int/dashboard/|/kibana-int/temp).*$">
-    ProxyPassMatch http://10.72.173.5:9200
-    ProxyPassReverse http://10.72.173.5:9200
+    ProxyPassMatch http://127.0.0.1:9200
+    ProxyPassReverse http://127.0.0.1:9200
   </LocationMatch>
 
     
