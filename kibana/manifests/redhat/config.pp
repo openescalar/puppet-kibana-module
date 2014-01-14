@@ -1,6 +1,6 @@
 class kibana::redhat::config ( 
 
-  $es_host  = $kibana::ipaddresa
+  $es_host  = $kibana::es_host
 
 ) {
   
